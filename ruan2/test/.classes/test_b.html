@@ -1,0 +1,163 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: test_b</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">test</a> ]
+</div>
+
+<h1>Coverage Summary for Class: test_b (test)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">test_b</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (36/ 36)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package test;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import static com.company.Method.*;
+<i>4</i>&nbsp;import static org.junit.Assert.assertEquals;
+<i>5</i>&nbsp;import org.junit.Before;
+<i>6</i>&nbsp;import org.junit.Test;
+<i>7</i>&nbsp;import java.util.Map;
+<i>8</i>&nbsp;
+<b class="fc"><i>9</i>&nbsp;public class test_b {</b>
+<b class="fc"><i>10</i>&nbsp;    String filePath = &quot;test.txt&quot;;</b>
+<b class="fc"><i>11</i>&nbsp;    Map&lt;String, Map&lt;String, Integer&gt;&gt; graph = genGraph(filePath);</b>
+<b class="fc"><i>12</i>&nbsp;    Map&lt;String, Map&lt;String, Integer&gt;&gt; emptygraph = genGraph(&quot;kong.txt&quot;);</b>
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    @Test
+<i>15</i>&nbsp;    public void testLuWordse() {
+<i>16</i>&nbsp;        // 正常情况：两个单词都在图中，且存在路径
+<b class="fc"><i>17</i>&nbsp;        String result = calcShortestPath(graph,&quot;to&quot;, &quot;and&quot;);</b>
+<b class="fc"><i>18</i>&nbsp;        assertEquals(&quot;to -&gt; explore -&gt; strange -&gt; new -&gt; life -&gt; and&quot;, result);</b>
+<b class="fc"><i>19</i>&nbsp;    }</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @Test
+<i>22</i>&nbsp;    public void testNoLuWords() {
+<i>23</i>&nbsp;        // 正常情况：两个单词没有桥接词
+<b class="fc"><i>24</i>&nbsp;        String result = calcShortestPath(graph,&quot;document&quot;, &quot;add&quot;);</b>
+<b class="fc"><i>25</i>&nbsp;        assertEquals(&quot;document and add are not connected!&quot;, result);</b>
+<b class="fc"><i>26</i>&nbsp;    }</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Test
+<i>29</i>&nbsp;    public void testWordNoInGraph() {
+<i>30</i>&nbsp;        // 异常情况：第一个单词不在图中
+<b class="fc"><i>31</i>&nbsp;        String result = calcShortestPath(graph,&quot;non&quot;, &quot;and&quot;);</b>
+<b class="fc"><i>32</i>&nbsp;        assertEquals(&quot;No non in the graph!&quot;, result);</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;        // 异常情况：第二个单词不在图中
+<b class="fc"><i>35</i>&nbsp;        result = calcShortestPath(graph,&quot;to&quot;, &quot;non&quot;);</b>
+<b class="fc"><i>36</i>&nbsp;        assertEquals(&quot;No non in the graph!&quot;, result);</b>
+<b class="fc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    @Test
+<i>40</i>&nbsp;    public void testBothWordsNoInGraph() {
+<i>41</i>&nbsp;        // 异常情况：两个单词都不在图中
+<b class="fc"><i>42</i>&nbsp;        String result = calcShortestPath(graph,&quot;non&quot;, &quot;ono&quot;);</b>
+<b class="fc"><i>43</i>&nbsp;        assertEquals(&quot;No non and ono in the graph!&quot;, result);</b>
+<b class="fc"><i>44</i>&nbsp;    }</b>
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    @Test
+<i>47</i>&nbsp;    public void testSameInputWords() {
+<i>48</i>&nbsp;        // 边界情况：输入单词相同
+<b class="fc"><i>49</i>&nbsp;        String result = calcShortestPath(graph,&quot;to&quot;, &quot;to&quot;);</b>
+<b class="fc"><i>50</i>&nbsp;        assertEquals(&quot;to and to are not connected!&quot;, result);</b>
+<b class="fc"><i>51</i>&nbsp;    }</b>
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    @Test
+<i>54</i>&nbsp;    public void testEmptyInput() {
+<i>55</i>&nbsp;        // 边界情况：输入为空字符串
+<b class="fc"><i>56</i>&nbsp;        String result = calcShortestPath(graph,&quot;to&quot;, &quot;&quot;);</b>
+<b class="fc"><i>57</i>&nbsp;        assertEquals(&quot;No  in the graph!&quot;, result);</b>
+<i>58</i>&nbsp;
+<b class="fc"><i>59</i>&nbsp;        result = calcShortestPath(graph,&quot;&quot;, &quot;to&quot;);</b>
+<b class="fc"><i>60</i>&nbsp;        assertEquals(&quot;No  in the graph!&quot;, result);</b>
+<i>61</i>&nbsp;
+<b class="fc"><i>62</i>&nbsp;        result = calcShortestPath(graph,&quot;&quot;, &quot;&quot;);</b>
+<b class="fc"><i>63</i>&nbsp;        assertEquals(&quot;No  and  in the graph!&quot;, result);</b>
+<b class="fc"><i>64</i>&nbsp;    }</b>
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    @Test
+<i>67</i>&nbsp;    public void testLongestWords() {
+<i>68</i>&nbsp;            // 边界情况：输入最长单词
+<b class="fc"><i>69</i>&nbsp;        String longWord1 = &quot;iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii&quot;; // 假设100为最大长度</b>
+<b class="fc"><i>70</i>&nbsp;        String longWord2 = &quot;t&quot;;</b>
+<b class="fc"><i>71</i>&nbsp;        String result = calcShortestPath(graph,longWord1, longWord2);</b>
+<b class="fc"><i>72</i>&nbsp;        assertEquals(&quot;No iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii and t in the graph!&quot;, result);</b>
+<b class="fc"><i>73</i>&nbsp;    }</b>
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    @Test
+<i>76</i>&nbsp;    public void testEmptyGraph() {
+<b class="fc"><i>77</i>&nbsp;        String result = calcShortestPath(emptygraph,&quot;i&quot;, &quot;t&quot;);</b>
+<b class="fc"><i>78</i>&nbsp;        assertEquals(&quot;The graph is empty!&quot;, result);</b>
+<b class="fc"><i>79</i>&nbsp;    }</b>
+<i>80</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-06-16 12:46</div>
+</div>
+</body>
+</html>
